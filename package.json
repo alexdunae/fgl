@@ -1,0 +1,51 @@
+{
+  "name": "fgl",
+  "version": "0.0.1",
+  "description": "FGL generator",
+  "main": "index.js",
+  "author": "Alex Dunae <alex@dunae.ca>",
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "babel-eslint": "^8.2.3",
+    "babel-jest": "^23.0.1",
+    "babel-preset-env": "^1.7.0",
+    "eslint": "^4.19.1",
+    "eslint-config-prettier": "^2.9.0",
+    "jest": "^23.1.0",
+    "regenerator-runtime": "^0.11.1"
+  },
+  "scripts": {
+    "test": "jest --watch"
+  },
+  "prettier": {
+    "printWidth": 100,
+    "singleQuote": true,
+    "arrowParens": "avoid",
+    "trailingComma": "all"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true
+    },
+    "parser": "babel-eslint",
+    "globals": {
+      "console": true
+    },
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "extends": [
+      "eslint:recommended"
+    ],
+    "rules": {
+      "indent": "off",
+      "linebreak-style": [
+        "warn",
+        "unix"
+      ],
+      "no-console": "off",
+      "no-unused-vars": "warn"
+    }
+  }
+}
