@@ -31,7 +31,7 @@ import * as f from './index';
 test('basics', () => {
   // f.run();
   expect(
-    [f.rotate(-90), f.move(360, 10), f.useFont(3, 1, 1, 'GHOSTWRITER WORLD')].join('')
+    [f.rotate(-90), f.move(360, 10), f.useFont(3, 'GHOSTWRITER WORLD', 1, 1)].join('')
   ).toEqual('<RL><RC360,10><HW1,1><F3>GHOSTWRITER WORLD');
 
   expect(

@@ -94,12 +94,12 @@ function fontHeightWidth(h, w) {
 /**
  * Use an internal font, optionally setting the height and width
  * @param {number} id Font ID
+ * @param {string} [text='']
  * @param {number} [h] Height
  * @param {number} [w] Width
- * @param {string} [text='']
  * @returns {string}
  */
-export function useFont(id, h, w, text = '') {
+export function useFont(id, text = '', h, w) {
   const sizeCmd = h ? fontHeightWidth(h, w) : '';
   return sizeCmd + cmd(`F${id}`) + text;
 }
@@ -362,7 +362,7 @@ export function alignRight(text, fieldWidth) {
  * @returns {string}
  */
 export function line() {
-  return Array.prototype.join.call(arguments, '') + "\n";
+  return Array.prototype.join.call(arguments, '') + '\n';
 }
 
 export function run() {
@@ -374,7 +374,7 @@ export function run() {
     setTicketCount(9),
     move(0, 0),
     drawBox(50, 50, 5),
-    uploadTextLogo(useFont(3, 1, 1), 'Here is a text logo'),
+    uploadTextLogo(useFont(3, 'Here is a text logo', 1, 1)),
     boxSize(33, 44),
     uploadTTF(10, 'XASDPOISDfSDFOPISDFSDnlkNSDflSDLKJ'),
     useTTF(10, 12),
