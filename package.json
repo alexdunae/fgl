@@ -16,7 +16,8 @@
     "regenerator-runtime": "^0.11.1"
   },
   "scripts": {
-    "test": "jest --watch"
+    "test": "jest --watch",
+    "docs:build": "documentation build ./index.js -f html -o docs"
   },
   "prettier": {
     "printWidth": 100,
