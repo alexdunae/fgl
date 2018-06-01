@@ -1,6 +1,35 @@
 /* global test expect */
 import * as f from './index';
 
+function printRun(ticketNumbers) {
+  const cmds = [];
+  const ticketCount = ticketNumbers.length;
+
+  ticketNumbers.forEach((ticketNumber, i) => {
+    cmds.push(ticket(ticketNumber, i === 0));
+    if (i == ticketCount - 1) {
+      cmds.push(f.print(false));
+    } else {
+      cmds.push(f.printAndHold(false));
+    }
+  });
+
+  return cmds.join('');
+}
+
+function ticket(ticketNumber, isFirstTicket) {
+  if (isFirstTicket) {
+    return [
+      f.line(f.rotate(-90), f.move(360, 10), f.useFont(3, 'GHOSTWRITER WORLD', 1, 1)),
+      f.line(f.useFont(6), f.boxSize(26, 44), 'THREE', f.useFont(2), f.boxSize(26, 44), 'PARKS'),
+      f.line(f.move(24, 580), f.drawBox(340, 50, 2)),
+      f.line(f.move(60, 990), f.code39(ticketNumber, true, 10, 2))
+    ].join('');
+  } else {
+    return f.line(f.move(60, 990), f.code39(ticketNumber, true, 10, 2), ticketNumber);
+  }
+}
+
 ('<RC380,76><F6><HW1,1><BS26,44>ALL<F2>');
 ('<RC348,130><F6><HW1,1><BS42,44>PASSPORT');
 ('<RC324,240><RL><F6><HW2,2>6');
@@ -44,4 +73,16 @@ test('basics', () => {
     '<RC60,990><X2><nL10>*01000407*'
   );
 });
+
+test('print run', () => {
+  console.log(
+    printRun([
+      '11111-111-A',
+      '11111-111-B',
+      '11111-111-C',
+      '11111-111-D',
+      '11111-111-E',
+      '11111-111-F'
+    ])
+  );
 });

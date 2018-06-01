@@ -2,11 +2,12 @@
   "name": "fgl",
   "version": "0.0.1",
   "description": "FGL generator",
-  "main": "index.js",
+  "main": "lib/index.js",
   "author": "Alex Dunae <alex@dunae.ca>",
   "license": "MIT",
   "private": true,
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-jest": "^23.0.1",
     "babel-preset-env": "^1.7.0",
@@ -17,6 +18,7 @@
   },
   "scripts": {
     "test": "jest --watch",
+    "prepublishOnly": "./node_modules/babel-cli/bin/babel.js src --out-dir lib --ignore '**/*.test.js'",
     "docs:build": "documentation build ./index.js -f html -o docs"
   },
   "prettier": {
