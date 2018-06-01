@@ -364,29 +364,3 @@ export function alignRight(text, fieldWidth) {
 export function line() {
   return Array.prototype.join.call(arguments, '') + '\n';
 }
-
-export function run() {
-  const cmds = [
-    move(0, 0),
-    shadingPattern('', 25),
-    move(560, 1600),
-
-    setTicketCount(9),
-    move(0, 0),
-    drawBox(50, 50, 5),
-    uploadTextLogo(useFont(3, 'Here is a text logo', 1, 1)),
-    boxSize(33, 44),
-    uploadTTF(10, 'XASDPOISDfSDFOPISDFSDnlkNSDflSDLKJ'),
-    useTTF(10, 12),
-    'Here is something with a true-type font',
-    alignRight('Here is some text', 300),
-    rotate(90),
-    uploadImageLogo(1, 'ABCDEFGHIJKLMNOP', 'pcx'),
-    printLogo(1, 50, 60, 'pcx'),
-    code128('12345-6789-0', true, 9),
-    qrCode('12345-6789-0'),
-    print(false)
-  ];
-
-  console.info(cmds);
-}
