@@ -27,7 +27,7 @@ function formatCmd(format) {
  */
 export function cmd(string, text) {
   if (text) {
-    return `<${string}>^${text}^`;
+    return `<${string}>${text}`;
   } else {
     return `<${string}>`;
   }
@@ -35,7 +35,7 @@ export function cmd(string, text) {
 
 /**
  * Set the rotation
- * @param {number} degrees May be 0, 90, 180 or 270
+ * @param {number} deg May be 0, 90, 180 or 270
  * @returns {string}
  */
 export function rotate(deg) {
@@ -96,11 +96,12 @@ function fontHeightWidth(h, w) {
  * @param {number} id Font ID
  * @param {number} [h] Height
  * @param {number} [w] Width
+ * @param {string} [text='']
  * @returns {string}
  */
-export function useFont(id, h, w) {
+export function useFont(id, h, w, text = '') {
   const sizeCmd = h ? fontHeightWidth(h, w) : '';
-  return sizeCmd + cmd(`F${id}`);
+  return sizeCmd + cmd(`F${id}`) + text;
 }
 
 /**
@@ -148,11 +149,11 @@ export function uploadImageLogo(id, bytes, format = 'fgl') {
 
 /**
  * Create a text-based logo
- * @param {string[]} cmds An array of commands that make up the text logo
+ * @param {...string} cmds The commands that make up the text logo
  * @todo does this accept an ID?
  * @returns {string}
  */
-export function uploadTextLogo(cmds) {
+export function uploadTextLogo() {
   return ESC + Array.prototype.join.call(arguments, '') + ESC;
 }
 
@@ -166,6 +167,10 @@ export function uploadTextLogo(cmds) {
 export function printLogo(id, row, col, format = 'fgl') {
   checkType('format', format, IMAGE_TYPES);
   return cmd(`SP${row},${col}`) + formatCmd(format) + cmd(`LD${id}`);
+}
+
+function barcodeExpansion(expansion) {
+  return expansion ? cmd(`X${expansion}`) : '';
 }
 
 // const QR_VERSIONS = [2, 7, 11, 15];
@@ -190,14 +195,27 @@ export function qrCode(data, size = 3, applyTilde = false, encodeMode = 0, error
 /**
  * @param {string} data The data to encode
  * @param {boolean} [ladder=true] Ladder or picket-fence orientation
- * @param {number} [height=10]
+ * @param {number} [height=4]
+ * @param {number} [expansion]
  * @returns {string}
  */
-export function code128(data, ladder = true, height = 10) {
+export function code128(data, ladder = true, height = 4, expansion) {
   const orientation = ladder ? 'L' : 'P';
-  return cmd(`o${orientation}${height}`, data);
+
+  return barcodeExpansion(expansion) + cmd(`o${orientation}${height}`) + data;
 }
 
+/**
+ * @param {string} data The data to encode
+ * @param {boolean} [ladder=true] Ladder or picket-fence orientation
+ * @param {number} [height=4]
+ * @param {number} [expansion]
+ * @returns {string}
+ */
+export function code39(data, ladder = true, height = 4, expansion) {
+  const orientation = ladder ? 'L' : 'P';
+  return barcodeExpansion(expansion) + cmd(`n${orientation}${height}`) + data;
+}
 
 /**
  * @param {string} data The data to encode
@@ -296,7 +314,7 @@ export function print(cut = false) {
  * @param {boolean} cut Print and cut or just print?
  * @returns {string}
  */
-export function printHold(cut) {
+export function printAndHold(cut) {
   return cmd(cut ? 'h' : 'r');
 }
 
@@ -336,6 +354,15 @@ export function alignCenter(text, fieldWidth) {
  */
 export function alignRight(text, fieldWidth) {
   return cmd(`RTJ${fieldWidth}`) + `~${text}~`;
+}
+
+/**
+ * Print a line
+ * @param {...string} cmds The commands to print on the line
+ * @returns {string}
+ */
+export function line() {
+  return Array.prototype.join.call(arguments, '') + "\n";
 }
 
 export function run() {
