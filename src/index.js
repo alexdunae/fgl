@@ -141,8 +141,8 @@ export function uploadTTF(id, bytes) {
  * @param {number} size Font size
  * @returns {string}
  */
-export function useTTF(id, size) {
-  return cmd(`TTF${id},${size}`);
+export function useTTF(id, size, text = '') {
+  return cmd(`TTF${id},${size}`) + text;
 }
 
 /**
