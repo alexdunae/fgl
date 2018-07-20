@@ -1,5 +1,12 @@
 const ESC = '\x1B';
 
+let debugMode = false;
+let lastMove = null;
+
+export function startDebugging(shouldDebug) {
+  debugMode = shouldDebug;
+}
+
 /**
  * @constant
  *
@@ -62,6 +69,7 @@ export function rotate(deg) {
  * @returns {string}
  */
 export function move(row, col) {
+  lastMove = `${row},${col}`;
   return cmd(`RC${row},${col}`);
 }
 
@@ -111,7 +119,9 @@ function fontHeightWidth(h, w) {
 export function useFont(id, text = '', h, w) {
   const sizeCmd = h ? fontHeightWidth(h, w) : '';
   const resetSizeCmd = h ? fontHeightWidth(1, 1) : '';
-  return sizeCmd + cmd(`F${id}`) + text + resetSizeCmd;
+  const debugString = debugMode ? `${lastMove},F${id},${h || 1}${w || 1}` : '';
+
+  return sizeCmd + cmd(`F${id}`) + text + resetSizeCmd + debugString;
 }
 
 /**
