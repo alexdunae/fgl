@@ -93,6 +93,15 @@ function fontHeightWidth(h, w) {
 
 /**
  * Use an internal font, optionally setting the height and width
+ *
+ * If height and width are provided we automatically send a <HW1,1> after the
+ * text to reset the font size.
+ *
+ * The text param can take a callback function, useful for centering text.
+ *
+ * @example
+ * f.useFont(2, f.alignCenter('Justified Text', 1000), 2, 2)
+  *
  * @param {number} id Font ID
  * @param {string} [text='']
  * @param {number} [h] Height
@@ -101,7 +110,8 @@ function fontHeightWidth(h, w) {
  */
 export function useFont(id, text = '', h, w) {
   const sizeCmd = h ? fontHeightWidth(h, w) : '';
-  return sizeCmd + cmd(`F${id}`) + text;
+  const resetSizeCmd = h ? fontHeightWidth(1, 1) : '';
+  return sizeCmd + cmd(`F${id}`) + text + resetSizeCmd;
 }
 
 /**

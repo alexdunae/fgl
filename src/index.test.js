@@ -61,7 +61,7 @@ test('basics', () => {
   // f.run();
   expect(
     [f.rotate(-90), f.move(360, 10), f.useFont(3, 'GHOSTWRITER WORLD', 1, 1)].join('')
-  ).toEqual('<RL><RC360,10><HW1,1><F3>GHOSTWRITER WORLD');
+  ).toEqual('<RL><RC360,10><HW1,1><F3>GHOSTWRITER WORLD<HW1,1>');
 
   expect(
     [f.useFont(6), f.boxSize(26, 44), 'THREE', f.useFont(2), f.boxSize(26, 44), 'PARKS'].join('')
