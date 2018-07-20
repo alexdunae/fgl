@@ -109,7 +109,7 @@ function fontHeightWidth(h, w) {
  *
  * @example
  * f.useFont(2, f.alignCenter('Justified Text', 1000), 2, 2)
-  *
+ *
  * @param {number} id Font ID
  * @param {string} [text='']
  * @param {number} [h] Height
@@ -238,11 +238,6 @@ export function code39(data, ladder = true, height = 4, expansion) {
 }
 
 /**
- * @param {string} data The data to encode
- * @param {number} [size=3]
- * @param {boolean} [applyTilde=false]
- * @param {number} [encodeMode=0] 0-2
- * @param {number} [errorCorrection=0] 0-3
  * @returns {string}
  */
 export function barcodeInterpretation() {
