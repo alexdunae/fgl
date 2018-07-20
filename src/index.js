@@ -209,7 +209,7 @@ export function qrCode(data, size = 3, applyTilde = false, encodeMode = 0, error
   checkRange('encodeMode', encodeMode, 0, 2);
   checkRange('errorCorrection', errorCorrection, 0, 3);
 
-  return cmd(`QR${size},${applyTilde ? 0 : 1},${errorCorrection},`, data);
+  return cmd(`QR${size},${applyTilde ? 0 : 1},${errorCorrection}`, `{${data}}`);
 }
 
 /**
